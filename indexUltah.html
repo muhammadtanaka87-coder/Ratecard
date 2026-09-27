@@ -419,41 +419,63 @@ section {
   line-height: 1.7;
 }
 
-/* GALLERY */
+/* GALLERY - NEW */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+  gap: 20px;
   max-width: 700px;
   margin: 0 auto;
 }
 
 .gallery-card {
-  aspect-ratio: 1/1;
   border-radius: 20px;
   overflow: hidden;
   background: linear-gradient(135deg, rgba(70,15,35,0.6), rgba(40,8,25,0.5));
-  border: 1px solid rgba(255, 150, 180, 0.15);
+  border: 1px solid rgba(255, 150, 180, 0.18);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   cursor: pointer;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
 }
 
 .gallery-card:hover {
   transform: scale(1.03);
-  box-shadow: 0 20px 60px rgba(200, 80, 130, 0.3);
+  box-shadow: 0 20px 60px rgba(200, 80, 130, 0.4),
+              0 0 40px rgba(255, 100, 150, 0.25);
 }
 
-.gallery-placeholder { font-size: 2.5rem; opacity: 0.7; }
+.gallery-img-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+}
 
-.gallery-card p {
+.gallery-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.gallery-card:hover .gallery-img-wrap img {
+  transform: scale(1.08);
+}
+
+.gallery-caption {
+  padding: 14px 16px;
+  text-align: center;
   font-family: 'Petit Formal Script', cursive;
-  font-size: 0.95rem;
-  color: rgba(220, 170, 190, 0.9);
+  font-size: 1.05rem;
+  color: rgba(255, 200, 220, 0.95);
+  background: rgba(20, 5, 15, 0.6);
+  border-top: 1px solid rgba(255, 150, 180, 0.18);
+  letter-spacing: 0.03em;
 }
 
 /* FINALE */
@@ -848,30 +870,42 @@ footer {
 
     <p class="garden-note">✨ hover each flower to discover its meaning ✨</p>
   </section>
-  <!-- GALLERY -->
+  <!-- ===== GALLERY ===== -->
 <section id="memories">
   <p class="section-eyebrow">captured in time</p>
   <h2 class="section-title">Your Beautiful<br><em>Pictures</em></h2>
   <div class="gallery-grid">
+
     <div class="gallery-card">
-      <img src="assets/images/img1.jpeg" alt="Foto 1" class="gallery-img">
-      <p>you</p>
+      <div class="gallery-img-wrap">
+        <img src="assets/images/img1.jpeg" alt="Foto 1">
+      </div>
+      <p class="gallery-caption">you</p>
     </div>
+
     <div class="gallery-card">
-      <img src="assets/images/img2.jpeg" alt="Foto 2" class="gallery-img">
-      <p>are</p>
+      <div class="gallery-img-wrap">
+        <img src="assets/images/img2.jpeg" alt="Foto 2">
+      </div>
+      <p class="gallery-caption">are</p>
     </div>
+
     <div class="gallery-card">
-      <img src="assets/images/img3.jpeg" alt="Foto 3" class="gallery-img">
-      <p>so</p>
+      <div class="gallery-img-wrap">
+        <img src="assets/images/img3.jpeg" alt="Foto 3">
+      </div>
+      <p class="gallery-caption">so</p>
     </div>
+
     <div class="gallery-card">
-      <img src="assets/images/img4.jpeg" alt="Foto 4" class="gallery-img">
-      <p>beautiful</p>
+      <div class="gallery-img-wrap">
+        <img src="assets/images/img4.jpeg" alt="Foto 4">
+      </div>
+      <p class="gallery-caption">beautiful</p>
     </div>
+
   </div>
 </section>
-
   <!-- FINALE -->
   <section id="finale">
     <div class="finale-flowers">
