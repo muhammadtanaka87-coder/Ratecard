@@ -602,9 +602,11 @@ footer {
   position: relative;
   padding: 80px 24px 120px;
   text-align: center;
-  overflow: hidden;
+  overflow: visible;
   max-width: 1100px;
   margin: 0 auto;
+  background: transparent;
+  z-index: 1;
 }
 
 .flower-garden {
@@ -1015,5 +1017,286 @@ window.addEventListener('load', () => {
 });
 </script>
 <script src="audio-system.js"></script>
+
+<!-- ===== PARTIKEL BUNGA BACKGROUND ===== -->
+<script>
+(function() {
+  'use strict';
+
+  const TAU = Math.PI * 2;
+  let canvas, ctx;
+  let W = window.innerWidth;
+  let H = window.innerHeight;
+  let scrollVel = 0;
+  let lastFrame = 0;
+
+  const CFG = {
+    l1: 70, l2: 45, dust: 50,
+    fps: 60,
+    dpr: Math.min(window.devicePixelRatio || 1, 2)
+  };
+  const FRAME_MS = 1000 / CFG.fps;
+  const TEX = {};
+
+  function _makeOffscreen(size) {
+    const c = document.createElement('canvas');
+    c.width = c.height = size;
+    return c;
+  }
+
+  function buildTextures() {
+    const defs = [
+      { key:'sak_sm',  type:'sakura', sz:16,  blur: 1.5 },
+      { key:'sak_md',  type:'sakura', sz:32,  blur: 0 },
+      { key:'sak_lg',  type:'sakura', sz:64,  blur: 0 },
+      { key:'rose_md', type:'rose',   sz:32,  blur: 0 },
+      { key:'rose_lg', type:'rose',   sz:64,  blur: 0 },
+      { key:'soft_sm', type:'soft',   sz:16,  blur: 1.5 },
+      { key:'soft_md', type:'soft',   sz:32,  blur: 0 },
+      { key:'dust',    type:'dust',   sz:24,  blur: 0 },
+    ];
+
+    const COLORS = {
+      bg:  'rgba(170,70,110,1)',
+      mid: 'rgba(215,95,145,1)',
+      fg:  'rgba(255,150,185,1)',
+    };
+
+    defs.forEach(d => {
+      const pad = d.blur + 4;
+      const full = d.sz + pad * 2;
+      const oc = _makeOffscreen(full);
+      const c = oc.getContext('2d');
+      c.clearRect(0, 0, full, full);
+      const cx = full / 2, cy = full / 2, s = d.sz / 2;
+
+      const color = d.type === 'dust' ? 'rgba(255,195,215,1)' : (
+        d.sz <= 16 ? COLORS.bg :
+        d.sz <= 32 ? COLORS.mid : COLORS.fg
+      );
+
+      if (d.blur > 0) c.filter = `blur(${d.blur}px)`;
+
+      if (d.type === 'sakura') {
+        c.save();
+        c.translate(cx, cy);
+        c.beginPath();
+        c.moveTo(0, -s);
+        c.bezierCurveTo(s*0.8,-s*0.8, s*0.9,s*0.3, 0,s*0.6);
+        c.bezierCurveTo(-s*0.9,s*0.3, -s*0.8,-s*0.8, 0,-s);
+        c.fillStyle = color;
+        c.fill();
+        c.globalAlpha = 0.25;
+        c.strokeStyle = 'rgba(255,255,255,0.6)';
+        c.lineWidth = s * 0.07;
+        c.beginPath(); c.moveTo(0,-s*0.75); c.lineTo(0,s*0.5); c.stroke();
+        c.restore();
+      } else if (d.type === 'rose') {
+        c.save();
+        c.translate(cx, cy);
+        c.beginPath();
+        c.ellipse(0, 0, s*0.5, s, 0, 0, TAU);
+        c.fillStyle = color;
+        c.fill();
+        c.restore();
+      } else if (d.type === 'soft') {
+        c.save();
+        c.translate(cx, cy);
+        c.beginPath();
+        c.ellipse(0, 0, s*0.38, s*0.85, 0, 0, TAU);
+        c.fillStyle = color;
+        c.fill();
+        c.restore();
+      } else if (d.type === 'dust') {
+        c.save();
+        c.translate(cx, cy);
+        const ps = s * 1.2;
+        c.beginPath();
+        c.moveTo(0, -ps);
+        c.bezierCurveTo(ps*0.7, -ps*0.7, ps*0.75, ps*0.2, 0, ps*0.5);
+        c.bezierCurveTo(-ps*0.75, ps*0.2, -ps*0.7, -ps*0.7, 0, -ps);
+        c.fillStyle = 'rgba(255,185,210,0.82)';
+        c.fill();
+        c.restore();
+      }
+      if (d.blur > 0) c.filter = 'none';
+      TEX[d.key] = { oc, full };
+    });
+  }
+
+  const PAL = {
+    bg:  ['rgba(170,70,110','rgba(130,50,90','rgba(190,80,125','rgba(150,60,100'],
+    mid: ['rgba(215,95,145','rgba(235,120,165','rgba(250,140,175','rgba(195,80,125'],
+    fg:  ['rgba(255,150,185','rgba(255,120,165','rgba(235,95,140','rgba(255,170,205'],
+  };
+  const rc = p => p[(Math.random() * p.length) | 0];
+
+  const L1 = [], L2 = [], DUST = [];
+
+  function _spawnL1(scatter) {
+    return {
+      x: Math.random() * W,
+      y: scatter ? Math.random() * H * 1.5 : -20,
+      sz: Math.random() * 3.5 + 1.5,
+      rot: Math.random() * TAU,
+      rspd: (Math.random() - 0.5) * 0.009,
+      vx: (Math.random() - 0.5) * 0.28,
+      vy: Math.random() * 0.20 + 0.06,
+      alpha: Math.random() * 0.25 + 0.06,
+      phase: Math.random() * TAU,
+      pspd: Math.random() * 0.005 + 0.002,
+      par: 0.06 + Math.random() * 0.09,
+      type: Math.random() > 0.5 ? 0 : 2,
+    };
+  }
+  function _spawnL2(scatter) {
+    return {
+      x: Math.random() * W,
+      y: scatter ? Math.random() * H * 1.5 : -30,
+      sz: Math.random() * 5 + 4,
+      rot: Math.random() * TAU,
+      rspd: (Math.random() - 0.5) * 0.014,
+      vx: (Math.random() - 0.5) * 0.40,
+      vy: Math.random() * 0.32 + 0.12,
+      alpha: Math.random() * 0.35 + 0.12,
+      phase: Math.random() * TAU,
+      pspd: Math.random() * 0.007 + 0.003,
+      sway: Math.random() * 0.9 + 0.3,
+      par: 0.14 + Math.random() * 0.14,
+      type: (Math.random() * 3) | 0,
+    };
+  }
+  function _spawnDust(scatter) {
+    return {
+      x: Math.random() * W,
+      y: scatter ? Math.random() * H : -10,
+      sz: Math.random() * 2.8 + 1.2,
+      vy: Math.random() * 0.16 + 0.04,
+      vx: (Math.random() - 0.5) * 0.12,
+      rot: Math.random() * TAU,
+      rspd: (Math.random() - 0.5) * 0.022,
+      alpha: 0,
+      alphaMax: Math.random() * 0.38 + 0.08,
+      phase: Math.random() * TAU,
+      pspd: Math.random() * 0.016 + 0.004,
+      par: 0.07 + Math.random() * 0.1,
+    };
+  }
+
+  function initPools() {
+    L1.length = L2.length = DUST.length = 0;
+    for (let i = 0; i < CFG.l1; i++) L1.push(_spawnL1(true));
+    for (let i = 0; i < CFG.l2; i++) L2.push(_spawnL2(true));
+    for (let i = 0; i < CFG.dust; i++) DUST.push(_spawnDust(true));
+  }
+
+  function getTexKey(type, sz) {
+    if (type === 1) return sz > 10 ? 'rose_lg' : 'rose_md';
+    if (type === 2) return sz > 8  ? 'soft_md' : 'soft_sm';
+    if (sz > 15) return 'sak_lg';
+    if (sz > 7)  return 'sak_md';
+    return 'sak_sm';
+  }
+
+  function drawPetal(p, key) {
+    const t = TEX[key];
+    if (!t) return;
+    const a = p.alpha * (0.75 + 0.25 * Math.sin(p.phase));
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.globalAlpha = a;
+    ctx.drawImage(t.oc, -t.full/2, -t.full/2);
+    ctx.restore();
+  }
+
+  function drawDust(p) {
+    const t = TEX['dust'];
+    if (!t) return;
+    const scale = p.sz / 1.5;
+    const a = p.alpha * (0.6 + 0.4 * Math.sin(p.phase));
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.scale(scale, scale);
+    ctx.globalAlpha = a;
+    ctx.drawImage(t.oc, -t.full/2, -t.full/2);
+    ctx.restore();
+  }
+
+  function render(now) {
+    requestAnimationFrame(render);
+    if (now - lastFrame < FRAME_MS) return;
+    lastFrame = now;
+    if (document.hidden) return;
+    ctx.clearRect(0, 0, W * CFG.dpr, H * CFG.dpr);
+
+    for (let i = 0; i < L1.length; i++) {
+      const p = L1[i];
+      p.phase += p.pspd; p.rot += p.rspd;
+      p.x += p.vx + Math.sin(p.phase) * 0.35;
+      p.y += p.vy - scrollVel * p.par * 0.015;
+      if (p.y > H + 25 || p.x < -25 || p.x > W + 25) { L1[i] = _spawnL1(false); continue; }
+      drawPetal(p, getTexKey(p.type, p.sz));
+    }
+
+    for (let i = 0; i < DUST.length; i++) {
+      const p = DUST[i];
+      p.phase += p.pspd; p.rot += p.rspd;
+      p.x += p.vx + Math.sin(p.phase * 0.6) * 0.18;
+      p.y += p.vy - scrollVel * p.par * 0.01;
+      if (p.alpha < p.alphaMax) p.alpha = Math.min(p.alphaMax, p.alpha + 0.007);
+      if (p.y > H + 15) { DUST[i] = _spawnDust(false); continue; }
+      drawDust(p);
+    }
+
+    for (let i = 0; i < L2.length; i++) {
+      const p = L2[i];
+      p.phase += p.pspd; p.rot += p.rspd;
+      p.x += p.vx + Math.sin(p.phase) * p.sway;
+      p.y += p.vy - scrollVel * p.par * 0.015;
+      if (p.y > H + 40 || p.x < -40 || p.x > W + 40) { L2[i] = _spawnL2(false); continue; }
+      drawPetal(p, getTexKey(p.type, p.sz));
+    }
+
+    scrollVel *= 0.88;
+  }
+
+  let lastSY = 0;
+  window.addEventListener('scroll', () => {
+    const sy = window.scrollY;
+    scrollVel += (sy - lastSY) * 0.35;
+    lastSY = sy;
+  }, { passive: true });
+
+  function onResize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = (W * CFG.dpr) | 0;
+    canvas.height = (H * CFG.dpr) | 0;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.scale(CFG.dpr, CFG.dpr);
+  }
+  window.addEventListener('resize', onResize, { passive: true });
+
+  function init() {
+    canvas = document.createElement('canvas');
+    canvas.id = 'floral-canvas';
+    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;';
+    canvas.width = (W * CFG.dpr) | 0;
+    canvas.height = (H * CFG.dpr) | 0;
+    ctx = canvas.getContext('2d', { alpha: true });
+    ctx.scale(CFG.dpr, CFG.dpr);
+    document.body.insertBefore(canvas, document.body.firstChild);
+    buildTextures();
+    initPools();
+    requestAnimationFrame(render);
+  }
+
+  window.addEventListener('load', init);
+})();
+</script>
+
 </body>
 </html>
