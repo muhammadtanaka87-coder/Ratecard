@@ -63,10 +63,7 @@ body::after {
   transition: opacity 1s ease;
 }
 
-#intro-scene.hide {
-  opacity: 0;
-  pointer-events: none;
-}
+#intro-scene.hide { opacity: 0; pointer-events: none; }
 
 .gift-wrapper {
   position: relative;
@@ -185,9 +182,7 @@ body::after {
   50% { opacity: 1; transform: translateY(-4px); }
 }
 
-.gift-lid.fly {
-  animation: lid-fly 0.9s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
-}
+.gift-lid.fly { animation: lid-fly 0.9s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
 
 @keyframes lid-fly {
   0% { transform: translateY(0) rotateZ(0deg); opacity: 1; }
@@ -196,11 +191,7 @@ body::after {
 }
 
 /* MAIN SITE */
-#main-site {
-  opacity: 0;
-  transition: opacity 1.2s ease;
-}
-
+#main-site { opacity: 0; transition: opacity 1.2s ease; }
 #main-site.show { opacity: 1; }
 
 section {
@@ -228,10 +219,7 @@ section {
   margin-bottom: 50px;
 }
 
-.section-title em {
-  font-style: italic;
-  color: rgba(255, 150, 185, 0.95);
-}
+.section-title em { font-style: italic; color: rgba(255, 150, 185, 0.95); }
 
 /* HERO */
 #hero {
@@ -259,11 +247,7 @@ section {
 }
 
 .hero-title .line1 { color: rgba(255, 235, 240, 0.95); display: block; }
-.hero-title .line2 {
-  color: rgba(255, 160, 190, 0.95);
-  font-style: italic;
-  display: block;
-}
+.hero-title .line2 { color: rgba(255, 160, 190, 0.95); font-style: italic; display: block; }
 
 .hero-sub {
   font-size: 1.05rem;
@@ -289,10 +273,7 @@ section {
 
 .scroll-btn:hover { color: rgba(255, 160, 190, 1); }
 
-.scroll-arrow {
-  font-size: 1.3rem;
-  animation: bounce-arrow 2s ease-in-out infinite;
-}
+.scroll-arrow { font-size: 1.3rem; animation: bounce-arrow 2s ease-in-out infinite; }
 
 @keyframes bounce-arrow {
   0%, 100% { transform: translateY(0); }
@@ -321,11 +302,7 @@ section {
   gap: 12px;
 }
 
-.card-flowers-top span {
-  display: inline-block;
-  animation: float-flower 3s ease-in-out infinite;
-}
-
+.card-flowers-top span { display: inline-block; animation: float-flower 3s ease-in-out infinite; }
 .card-flowers-top span:nth-child(2) { animation-delay: 0.5s; }
 .card-flowers-top span:nth-child(3) { animation-delay: 1s; }
 
@@ -350,10 +327,7 @@ section {
   color: rgba(255, 235, 240, 0.95);
 }
 
-.msg-title em {
-  color: rgba(255, 150, 185, 0.95);
-  font-style: italic;
-}
+.msg-title em { color: rgba(255, 150, 185, 0.95); font-style: italic; }
 
 .msg-body {
   font-size: 1rem;
@@ -419,6 +393,159 @@ section {
   line-height: 1.7;
 }
 
+/* ============================================================
+   GARDEN SECTION — "Our Secret Garden"
+   ============================================================ */
+#garden {
+  position: relative;
+  padding: 80px 24px 100px;
+  text-align: center;
+  overflow: hidden;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.flower-garden {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 60px 0 40px;
+  position: relative;
+}
+
+.garden-flower {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.garden-flower:hover { transform: translateY(-5px); }
+
+.gf-bloom {
+  font-size: 3.5rem;
+  line-height: 1;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), filter 0.4s ease;
+  filter: drop-shadow(0 4px 12px rgba(200,80,120,0.4));
+  animation: sway 3s ease-in-out infinite;
+  transform-origin: bottom center;
+  position: relative;
+  z-index: 3;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-4deg); }
+  50%      { transform: rotate(4deg); }
+}
+
+.garden-flower:nth-child(odd) .gf-bloom { animation-delay: 0.5s; }
+.garden-flower:nth-child(3) .gf-bloom   { animation-delay: 1s; }
+.garden-flower:nth-child(5) .gf-bloom   { animation-delay: 1.5s; }
+.garden-flower:nth-child(7) .gf-bloom   { animation-delay: 2s; }
+
+.garden-flower:hover .gf-bloom {
+  transform: scale(1.35) rotate(0deg) !important;
+  filter: drop-shadow(0 8px 24px rgba(255,100,150,0.7));
+  animation-play-state: paused;
+}
+
+.gf-stem {
+  width: 3px;
+  height: 90px;
+  background: linear-gradient(180deg, #7ab648, #4a8c20);
+  border-radius: 0 0 3px 3px;
+  position: relative;
+  margin-top: -5px;
+}
+
+.gf-stem::before, .gf-stem::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 9px;
+  background: linear-gradient(90deg, #7ab648, #4a8c20);
+  border-radius: 50% 0 50% 0;
+}
+
+.gf-stem::before { top: 25px; left: -14px; transform: rotate(-25deg); }
+.gf-stem::after  { top: 45px; right: -14px; transform: rotate(25deg) scaleX(-1); }
+
+.gf1 .gf-stem { height: 80px; }
+.gf2 .gf-stem { height: 70px; }
+.gf3 .gf-stem { height: 95px; }
+.gf4 .gf-stem { height: 75px; }
+.gf5 .gf-stem { height: 65px; }
+.gf6 .gf-stem { height: 85px; }
+.gf7 .gf-stem { height: 90px; }
+
+.gf-tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  padding: 12px 18px;
+  min-width: 150px;
+  background: rgba(20, 5, 15, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 150, 180, 0.25);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 30px rgba(200,80,130,0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  z-index: 100;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.gf-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: rgba(20, 5, 15, 0.92);
+}
+
+.gf-tooltip strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: rgba(255, 235, 245, 0.98);
+  letter-spacing: 0.02em;
+  margin-bottom: 3px;
+}
+
+.gf-tooltip span {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(255, 160, 190, 0.75);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.garden-flower:hover .gf-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.garden-note {
+  margin-top: 30px;
+  font-family: 'Petit Formal Script', cursive;
+  font-size: 1rem;
+  color: rgba(180, 130, 155, 0.7);
+  font-style: italic;
+}
+
 /* GALLERY */
 .gallery-grid {
   display: grid;
@@ -467,11 +594,7 @@ section {
   gap: 12px;
 }
 
-.finale-flowers span {
-  display: inline-block;
-  animation: float-flower 3s ease-in-out infinite;
-}
-
+.finale-flowers span { display: inline-block; animation: float-flower 3s ease-in-out infinite; }
 .finale-flowers span:nth-child(2) { animation-delay: 0.3s; }
 .finale-flowers span:nth-child(3) { animation-delay: 0.6s; }
 .finale-flowers span:nth-child(4) { animation-delay: 0.9s; }
@@ -493,10 +616,7 @@ section {
   color: rgba(255, 235, 240, 0.95);
 }
 
-.finale-title em {
-  color: rgba(255, 160, 190, 0.95);
-  font-style: italic;
-}
+.finale-title em { color: rgba(255, 160, 190, 0.95); font-style: italic; }
 
 .finale-body {
   max-width: 600px;
@@ -563,15 +683,18 @@ footer {
   section { padding: 80px 18px; }
   #gift-box { width: 130px; height: 130px; }
   .gift-lid { width: 146px; }
+  .flower-garden { gap: 12px; }
+  .gf-bloom { font-size: 2.4rem; }
+  .gf-stem { height: 55px !important; }
+  .gf-stem::before, .gf-stem::after { width: 10px; height: 6px; }
+  .gf-stem::before { left: -8px; }
+  .gf-stem::after { right: -8px; }
 }
 
-/* ⬇️ INI YANG BIKIN BUNGA MUTAR ⬇️ */
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
-/* ⬆️ SELESAI ⬆️ */
-
 </style>
 </head>
 
@@ -664,126 +787,18 @@ footer {
     </div>
   </section>
 
-  <!-- GALLERY -->
-  <section id="memories">
-    <p class="section-eyebrow">captured in time</p>
-    <h2 class="section-title">Your Beautiful<br><em>Pictures</em></h2>
-    <div class="gallery-grid">
-      <div class="gallery-card"><div class="gallery-placeholder">🌸</div><p>you</p></div>
-      <div class="gallery-card"><div class="gallery-placeholder">🌺</div><p>are</p></div>
-      <div class="gallery-card"><div class="gallery-placeholder">🌹</div><p>so</p></div>
-      <div class="gallery-card"><div class="gallery-placeholder">🌷</div><p>beautiful</p></div>
-    </div>
-  </section>
+  <!-- ===== GARDEN SECTION ===== -->
+  <section id="garden">
+    <p class="section-eyebrow">our secret garden</p>
+    <h2 class="section-title">A Garden Grown<br><em>Just For You</em></h2>
 
-  <!-- FINALE -->
-  <section id="finale">
-    <div class="finale-flowers">
-      <span>🌸</span><span>🌺</span><span>🌹</span><span>🌸</span><span>🌷</span>
-    </div>
-    <p class="finale-eyebrow">always &amp; forever</p>
-    <h2 class="finale-title">You Are Loved<br><em>Beyond Words</em></h2>
-    <p class="finale-body">
-      No matter where life takes us, know that somewhere in the universe,
-      there is a garden blooming with every feeling I have ever held for you.
-      You deserve the world. You deserve all the flowers. You deserve everything.
-    </p>
-    <div class="heart-pulse">💗</div>
-    <p class="finale-sig">Made with love, just for you 🌸</p>
-  </section>
-
-  <footer>🌸 for you 🌸</footer>
-
-</div>
-
-<script>
-let introStarted = false;
-
-function openGift() {
-  if (introStarted) return;
-  introStarted = true;
-
-  const lid = document.querySelector('.gift-lid');
-  const hint = document.querySelector('.gift-hint');
-
-  hint.style.transition = 'opacity 0.3s';
-  hint.style.opacity = '0';
-
-  const box = document.getElementById('gift-box');
-  box.style.animation = 'none';
-  setTimeout(() => {
-    box.style.transform = 'rotate(-4deg)';
-    setTimeout(() => box.style.transform = 'rotate(4deg)', 100);
-    setTimeout(() => box.style.transform = 'rotate(0deg)', 200);
-  }, 50);
-
-  setTimeout(() => lid.classList.add('fly'), 400);
-  setTimeout(() => burstFlowers(), 600);
-  setTimeout(() => startPetals(), 800);
-
-  setTimeout(() => {
-    document.getElementById('intro-scene').classList.add('hide');
-    document.getElementById('main-site').classList.add('show');
-  }, 1800);
-}
-
-function burstFlowers() {
-  const flowers = ['🌸','🌺','🌹','🌷','🌼','🪷','💐','🌸','🌺','🌹','🌸','🌷'];
-
-  flowers.forEach((flower, i) => {
-    setTimeout(() => {
-      const el = document.createElement('div');
-      el.textContent = flower;
-      el.style.cssText = `
-        position: fixed;
-        top: 50%; left: 50%;
-        font-size: ${Math.random() * 1.5 + 1.5}rem;
-        pointer-events: none;
-        z-index: 1500;
-        transform: translate(-50%, -50%);
-        transition: all 2s cubic-bezier(0.25,0.46,0.45,0.94);
-        opacity: 1;
-      `;
-      document.body.appendChild(el);
-
-      const angle = (i / flowers.length) * 360 + Math.random() * 30;
-      const dist = Math.random() * 200 + 150;
-      const rad = (angle * Math.PI) / 180;
-      const tx = Math.cos(rad) * dist;
-      const ty = Math.sin(rad) * dist;
-      const rot = Math.random() * 360 - 180;
-
-      requestAnimationFrame(() => {
-        el.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) rotate(${rot}deg) scale(1.2)`;
-        el.style.opacity = '0';
-      });
-
-      setTimeout(() => el.remove(), 2200);
-    }, i * 70);
-  });
-}
-
-function startPetals() {
-  const petals = ['🌸','🌺','🌷','🌼','🌹','🪷','💐'];
-  const interval = setInterval(() => {
-    const p = document.createElement('div');
-    p.className = 'petal';
-    p.textContent = petals[Math.floor(Math.random() * petals.length)];
-    p.style.left = Math.random() * 100 + '%';
-    p.style.fontSize = (Math.random() * 0.8 + 0.8) + 'rem';
-    p.style.animationDuration = (Math.random() * 6 + 8) + 's';
-    p.style.animationDelay = (Math.random() * 2) + 's';
-    document.body.appendChild(p);
-    setTimeout(() => p.remove(), 16000);
-  }, 400);
-
-  setTimeout(() => clearInterval(interval), 60000);
-}
-
-window.addEventListener('load', () => {
-  setTimeout(startPetals, 500);
-});
-</script>
-<script src="audio-system.js"></script>
-</body>
-</html>
+    <div class="flower-garden">
+      <div class="garden-flower gf1">
+        <div class="gf-bloom">🌹</div>
+        <div class="gf-stem"></div>
+        <div class="gf-tooltip"><strong>Rose</strong><span>Endless Love</span></div>
+      </div>
+      <div class="garden-flower gf2">
+        <div class="gf-bloom">🌸</div>
+        <div class="gf-stem"></div>
+        <div class="gf-tooltip
