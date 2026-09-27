@@ -572,6 +572,174 @@ footer {
 }
 /* ⬆️ SELESAI ⬆️ */
 
+/* ============================================================
+   GARDEN SECTION — "Our Secret Garden"
+   ============================================================ */
+
+#garden {
+  position: relative;
+  padding: 80px 24px 120px;
+  text-align: center;
+  overflow: hidden;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.flower-garden {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 60px 0 40px;
+  position: relative;
+}
+
+.garden-flower {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.garden-flower:hover {
+  transform: translateY(-8px);
+}
+
+.gf-bloom {
+  font-size: 4rem;
+  line-height: 1;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), filter 0.4s ease;
+  filter: drop-shadow(0 6px 14px rgba(200,80,120,0.5));
+  animation: garden-sway 3s ease-in-out infinite;
+  transform-origin: bottom center;
+  position: relative;
+  z-index: 3;
+  margin-bottom: -8px;
+}
+
+@keyframes garden-sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50%      { transform: rotate(3deg); }
+}
+
+.garden-flower:nth-child(odd) .gf-bloom { animation-delay: 0.5s; }
+.garden-flower:nth-child(3) .gf-bloom   { animation-delay: 1s; }
+.garden-flower:nth-child(5) .gf-bloom   { animation-delay: 1.5s; }
+.garden-flower:nth-child(7) .gf-bloom   { animation-delay: 2s; }
+
+.garden-flower:hover .gf-bloom {
+  transform: scale(1.3) rotate(0deg) !important;
+  filter: drop-shadow(0 10px 30px rgba(255,100,150,0.8));
+  animation-play-state: paused;
+}
+
+.gf-stem {
+  width: 3px;
+  height: 55px;
+  background: linear-gradient(180deg, #7ab648, #4a8c20);
+  border-radius: 0 0 3px 3px;
+  position: relative;
+}
+
+.gf-stem::before,
+.gf-stem::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 9px;
+  background: linear-gradient(90deg, #7ab648, #4a8c20);
+  border-radius: 50% 0 50% 0;
+}
+
+.gf-stem::before { top: 15px; left: -14px; transform: rotate(-25deg); }
+.gf-stem::after  { top: 30px; right: -14px; transform: rotate(25deg) scaleX(-1); }
+
+.gf1 .gf-stem { height: 55px; }
+.gf2 .gf-stem { height: 45px; }
+.gf3 .gf-stem { height: 65px; }
+.gf4 .gf-stem { height: 50px; }
+.gf5 .gf-stem { height: 40px; }
+.gf6 .gf-stem { height: 58px; }
+.gf7 .gf-stem { height: 62px; }
+
+.gf-tooltip {
+  position: absolute;
+  bottom: calc(100% + 20px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  padding: 14px 20px;
+  min-width: 160px;
+  background: rgba(20, 5, 15, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 150, 180, 0.3);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 30px rgba(200,80,130,0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  z-index: 100;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.gf-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: rgba(20, 5, 15, 0.95);
+}
+
+.gf-tooltip strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 235, 245, 0.98);
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+
+.gf-tooltip span {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(255, 160, 190, 0.8);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.garden-flower:hover .gf-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.garden-note {
+  margin-top: 40px;
+  font-family: 'Petit Formal Script', cursive;
+  font-size: 1rem;
+  color: rgba(255, 180, 210, 0.7);
+  font-style: italic;
+}
+
+@media (max-width: 700px) {
+  .flower-garden { gap: 18px; padding: 40px 0 30px; }
+  .gf-bloom { font-size: 2.6rem; }
+  .gf-stem { height: 40px !important; }
+  .gf-stem::before, .gf-stem::after { width: 12px; height: 7px; }
+  .gf-stem::before { left: -10px; }
+  .gf-stem::after  { right: -10px; }
+  .gf-tooltip { min-width: 120px; padding: 10px 14px; }
+  .gf-tooltip strong { font-size: 0.95rem; }
+  .gf-tooltip span { font-size: 0.65rem; }
+}
 </style>
 </head>
 
@@ -663,7 +831,23 @@ footer {
       <div class="reason-card"><div class="reason-icon">💖</div><h3>Simply You</h3><p>Every version of you, every moment — you are more than enough.</p></div>
     </div>
   </section>
+  <!-- ===== GARDEN ===== -->
+  <section id="garden">
+    <p class="section-eyebrow">our secret garden</p>
+    <h2 class="section-title">A Garden Grown<br><em>Just For You</em></h2>
 
+    <div class="flower-garden">
+      <div class="garden-flower gf1"><div class="gf-bloom">🌹</div><div class="gf-stem"></div><div class="gf-tooltip"><strong>Rose</strong><span>Endless Love</span></div></div>
+      <div class="garden-flower gf2"><div class="gf-bloom">🌸</div><div class="gf-stem"></div><div class="gf-tooltip"><strong>Cherry Blossom</strong><span>Gentle Beauty</span></div></div>
+      <div class="garden-flower gf3"><div class="gf-bloom">🪷</div><div class="gf-stem"></div><div class="gf-tooltip"><strong>Lotus</strong><span>Pure Heart</span></div></div>
+      <div class="garden-flower gf4"><div class="gf-bloom">🌺</div><div class="gf-stem"></div><div class="gf-tooltip"><strong>Hibiscus</strong><span>Delicate Passion</span></div></div>
+      <div class="garden-flower gf5"><div class="gf-bloom">🌼</div><div class="gf-stem"></div><div class="gf-tooltip"><strong>Daisy</strong><span>True Devotion</span></div></div>
+      <div class="garden-flower gf6"><div class="gf-bloom">🌷</div><div class="gf-stem"></div><div class="gf-tooltip"><strong>Tulip</strong><span>Perfect Happiness</span></div></div>
+      <div class="garden-flower gf7"><div class="gf-bloom">🌻</div><div class="gf-stem"></div><div class="gf-tooltip"><strong>Sunflower</strong><span>Warmth & Joy</span></div></div>
+    </div>
+
+    <p class="garden-note">✨ hover each flower to discover its meaning ✨</p>
+  </section>
   <!-- GALLERY -->
   <section id="memories">
     <p class="section-eyebrow">captured in time</p>
