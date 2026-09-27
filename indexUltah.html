@@ -591,6 +591,10 @@ footer {
   #gift-box { width: 130px; height: 130px; }
   .gift-lid { width: 146px; }
 }
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
 </style>
 </head>
 
@@ -631,6 +635,21 @@ footer {
       <span class="line2">My Everything</span>
     </h1>
     <p class="hero-sub">Every petal holds a whisper of how much you mean to me.</p>
+
+<!-- BUNGA SVG BARU -->
+<div style="margin: 40px auto; display: flex; justify-content: center;">
+  <svg width="120" height="120" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 20px rgba(255,120,160,0.6)); animation: spin-slow 14s linear infinite;">
+    <g transform="translate(50,50)">
+      <ellipse cx="0" cy="-22" rx="12" ry="22" fill="rgba(255,182,193,0.9)"/>
+      <ellipse cx="0" cy="-22" rx="12" ry="22" fill="rgba(255,182,193,0.9)" transform="rotate(60)"/>
+      <ellipse cx="0" cy="-22" rx="12" ry="22" fill="rgba(255,192,203,0.9)" transform="rotate(120)"/>
+      <ellipse cx="0" cy="-22" rx="12" ry="22" fill="rgba(255,192,203,0.9)" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-22" rx="12" ry="22" fill="rgba(255,182,193,0.9)" transform="rotate(240)"/>
+      <ellipse cx="0" cy="-22" rx="12" ry="22" fill="rgba(255,182,193,0.9)" transform="rotate(300)"/>
+      <circle cx="0" cy="0" r="10" fill="rgba(255,220,180,0.95)"/>
+    </g>
+  </svg>
+</div>
     <a href="#message" class="scroll-btn">
       <span>Scroll to discover</span>
       <div class="scroll-arrow">↓</div>
