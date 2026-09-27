@@ -1,477 +1,848 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Rate Card - Joki Tugas Samanah</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday, My Everything 🌸</title>
+
+<!-- Font dari Google Fonts (Cormorant Garamond, Jost, Petit Formal Script) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Petit+Formal+Script&family=Jost:wght@200;300;400&display=swap" rel="stylesheet" />
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap');
+/* ============================================================
+   RESET & GLOBAL
+   ============================================================ */
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  min-height: 100%;
+  background: #0e0208;
+  color: rgba(255, 220, 235, 0.92);
+  font-family: 'Jost', sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
 
-  body {
-    background: #e8e6e1;
-    font-family: 'Inter', sans-serif;
-    padding: 40px 20px;
-    display: flex;
-    justify-content: center;
-  }
+/* ============================================================
+   BACKGROUND SINEMATIK
+   ============================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 35% at 20% 20%, rgba(140,30,70,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 30% at 80% 15%, rgba(100,20,55,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse 55% 35% at 15% 80%, rgba(120,25,60,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 35% at 85% 85%, rgba(90,15,45,0.20) 0%, transparent 50%),
+    linear-gradient(160deg, #0e0208 0%, #1a0510 25%, #230818 50%, #1a0510 75%, #0e0208 100%);
+  z-index: -2;
+  pointer-events: none;
+  animation: bg-breathe 12s ease-in-out infinite alternate;
+}
 
-  .card {
-    width: 720px;
-    background: #f5f3ee;
-    border: 1px solid #2a2a2a;
-    padding: 40px 45px;
-    position: relative;
-    color: #2a2a2a;
-  }
+@keyframes bg-breathe {
+  0% { opacity: 0.85; }
+  100% { opacity: 1; }
+}
 
-  /* Corner marks */
-  .corner-tl, .corner-tr, .corner-bl, .corner-br {
-    content: '';
-    position: absolute;
-    width: 14px;
-    height: 14px;
-  }
-  .corner-tl { top: -1px; left: -1px; border-top: 1.5px solid #2a2a2a; border-left: 1.5px solid #2a2a2a; }
-  .corner-tr { top: -1px; right: -1px; border-top: 1.5px solid #2a2a2a; border-right: 1.5px solid #2a2a2a; }
-  .corner-bl { bottom: -1px; left: -1px; border-bottom: 1.5px solid #2a2a2a; border-left: 1.5px solid #2a2a2a; }
-  .corner-br { bottom: -1px; right: -1px; border-bottom: 1.5px solid #2a2a2a; border-right: 1.5px solid #2a2a2a; }
+/* Vignette sinematik */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 45%, rgba(6,1,6,0.55) 100%);
+  z-index: -1;
+  pointer-events: none;
+}
 
-  .top-bar {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    color: #6b6b6b;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed #b8b5ae;
-    margin-bottom: 22px;
-  }
+/* ============================================================
+   INTRO SCENE — GIFT BOX
+   ============================================================ */
+#intro-scene {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity 1s ease;
+}
 
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 40px;
-    font-weight: 900;
-    letter-spacing: -0.5px;
-    color: #1a1a1a;
-    margin-bottom: 6px;
-  }
+#intro-scene.hide {
+  opacity: 0;
+  pointer-events: none;
+}
 
-  .subtitle {
-    font-size: 13px;
-    color: #4a4a4a;
-    margin-bottom: 28px;
-  }
-  .subtitle span { color: #c8553d; font-weight: 600; }
+.gift-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  perspective: 900px;
+}
 
-  .section-title {
-    display: inline-block;
-    background: #2a2a2a;
-    color: #f5f3ee;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 5px 14px;
-    letter-spacing: 0.3px;
-    margin-bottom: 12px;
-    margin-top: 24px;
-  }
-  .section-title.gold {
-    background: #c9a24a;
-    color: #1a1a1a;
-  }
-  .section-title.blue {
-    background: #2b3a67;
-    color: #ffffff;
-  }
+#gift-container {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+  animation: gift-float 5s ease-in-out infinite;
+}
 
-  /* Big divider between Skripsi & Tesis */
-  .big-divider {
-    height: 2px;
-    background: #2a2a2a;
-    margin: 40px 0 30px;
-    position: relative;
-  }
-  .big-divider::after {
-    content: 'TESIS';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #f5f3ee;
-    padding: 0 16px;
-    font-family: 'Playfair Display', serif;
-    font-size: 14px;
-    font-weight: 900;
-    letter-spacing: 3px;
-    color: #2a2a2a;
-  }
+@keyframes gift-float {
+  0%, 100% { transform: translateY(0) rotateX(4deg) rotateY(-3deg); }
+  50% { transform: translateY(-10px) rotateX(2deg) rotateY(3deg); }
+}
 
-  .divider {
-    height: 1px;
-    background: #d5d2ca;
-    margin-bottom: 4px;
-  }
+#gift-container:hover {
+  transform: scale(1.05);
+}
 
-  .item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 11px 0;
-    border-bottom: 1px solid #e0ddd6;
-    font-size: 13.5px;
-  }
-  .item:last-child { border-bottom: none; }
-  .item .left { max-width: 68%; }
-  .item .name { font-weight: 500; color: #1a1a1a; margin-bottom: 2px; }
-  .item .desc { font-size: 11px; color: #8a8a8a; line-height: 1.4; }
-  .item .price { font-weight: 700; color: #1a1a1a; white-space: nowrap; }
+#gift-box {
+  width: 160px;
+  height: 160px;
+  position: relative;
+  filter:
+    drop-shadow(0 22px 18px rgba(0,0,0,0.55))
+    drop-shadow(0 0 28px rgba(255,120,160,0.45));
+  transition: filter 0.4s ease;
+}
 
-  /* Dark blocks for paket */
-  .dark-block {
-    background: #22252f;
-    color: #f5f3ee;
-    padding: 22px 25px 25px;
-    margin-top: 24px;
-    margin-bottom: 12px;
-  }
-  .dark-block .section-title {
-    margin-top: 0;
-    margin-bottom: 14px;
-  }
-  .dark-block .item {
-    border-bottom: 1px solid #3a3e4a;
-    color: #e8e6e1;
-    padding: 8px 0;
-  }
-  .dark-block .item .name { color: #ffffff; font-size: 13.5px; }
-  .dark-block .item .desc { color: #a0a4b0; }
-  .dark-block .item .price { color: #ffffff; }
-  .dark-block .note {
-    font-size: 11.5px;
-    color: #c8ccd6;
-    line-height: 1.6;
-    padding-top: 14px;
-    border-top: 1px solid #3a3e4a;
-    margin-top: 8px;
-  }
+.gift-lid {
+  position: absolute;
+  top: 0; left: -8px;
+  width: 176px;
+  height: 55px;
+  background: linear-gradient(165deg, #f28aa8 0%, #e8698a 25%, #c0304a 65%, #a02040 100%);
+  border-radius: 8px 8px 0 0;
+  z-index: 2;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.35), inset 0 -2px 0 rgba(0,0,0,0.25);
+  transform-origin: top center;
+  transition: transform 0.8s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s ease;
+}
 
-  /* Include list */
-  .include-title {
-    font-size: 11.5px;
-    font-weight: 700;
-    color: #c9a24a;
-    letter-spacing: 0.5px;
-    margin-top: 14px;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-  }
-  .include-list {
-    list-style: none;
-    font-size: 12px;
-    color: #d0d4dc;
-    line-height: 1.7;
-  }
-  .include-list li::before {
-    content: '✔ ';
-    color: #4ade80;
-    font-weight: 700;
-    margin-right: 4px;
-  }
-  .include-list.dark-text { color: #4a4a4a; }
+.gift-body {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 160px;
+  height: 115px;
+  background: linear-gradient(165deg, #e05678 0%, #d44a6a 30%, #b03050 70%, #8a1a35 100%);
+  border-radius: 0 0 12px 12px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.18), inset 0 -3px 0 rgba(0,0,0,0.3);
+}
 
-  /* Highlight box */
-  .highlight-box {
-    background: #2b3a67;
-    color: #ffffff;
-    padding: 16px 22px;
-    margin-top: 22px;
-    text-align: center;
-    font-size: 12.5px;
-    line-height: 1.7;
-    font-style: italic;
-    border-radius: 6px;
-  }
-  .highlight-box strong { font-style: normal; }
+.ribbon-h {
+  position: absolute;
+  top: 50%; left: 0;
+  width: 100%; height: 14px;
+  background: linear-gradient(90deg, #f7c873, #f4a840, #f7c873);
+  transform: translateY(-50%);
+  box-shadow: 0 0 8px rgba(247,200,115,0.4);
+}
 
-  /* Payment info */
-  .payment-info {
-    margin-top: 20px;
-    font-size: 12.5px;
-    color: #2a2a2a;
-    line-height: 1.9;
-  }
-  .payment-info .icon { margin-right: 6px; }
-  .payment-info .price-extra { color: #c8553d; font-weight: 700; }
+.ribbon-v {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 14px; height: 100%;
+  background: linear-gradient(180deg, #f7c873, #f4a840, #f7c873);
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px rgba(247,200,115,0.35);
+}
 
-  .footer {
-    margin-top: 30px;
-    padding-top: 18px;
-    border-top: 1px dashed #b8b5ae;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    font-size: 11.5px;
-    color: #6b6b6b;
-  }
-  .footer .left { font-weight: 600; color: #2a2a2a; font-size: 12px; }
-  .footer .right { text-align: right; line-height: 1.5; max-width: 55%; }
+.bow {
+  position: absolute;
+  top: -18px; left: 50%;
+  transform: translateX(-50%);
+}
+
+.bow-left, .bow-right {
+  position: absolute;
+  width: 32px; height: 22px;
+  background: linear-gradient(135deg, #ffe066 0%, #f7c430 40%, #d4920a 80%, #b87800 100%);
+  border-radius: 50%;
+  top: 0;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.5), inset 0 -2px 3px rgba(0,0,0,0.3);
+}
+
+.bow-left { left: -28px; transform: rotate(-20deg); }
+.bow-right { left: 12px; transform: rotate(20deg); }
+
+.bow-center {
+  position: absolute;
+  width: 16px; height: 16px;
+  background: radial-gradient(circle at 35% 35%, #ffe87a, #f0ab10);
+  border-radius: 50%;
+  top: 3px; left: -2px;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(247,200,115,0.7);
+}
+
+.gift-hint {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: rgba(255, 200, 220, 0.75);
+  letter-spacing: 0.12em;
+  animation: hint-pulse 2s ease-in-out infinite;
+}
+
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.6; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-4px); }
+}
+
+/* Lid fly animation */
+.gift-lid.fly {
+  animation: lid-fly 0.9s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+
+@keyframes lid-fly {
+  0% { transform: translateY(0) rotateZ(0deg); opacity: 1; }
+  40% { transform: translateY(-120px) rotateZ(-25deg); opacity: 1; }
+  100% { transform: translateY(-300px) rotateZ(-50deg) scale(0.3); opacity: 0; }
+}
+
+/* ============================================================
+   MAIN SITE
+   ============================================================ */
+#main-site {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+#main-site.show {
+  opacity: 1;
+}
+
+section {
+  padding: 100px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}
+
+.section-eyebrow {
+  font-family: 'Petit Formal Script', cursive;
+  font-size: 1.1rem;
+  color: rgba(255, 150, 185, 0.9);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 300;
+  color: rgba(255, 235, 240, 0.95);
+  line-height: 1.15;
+  margin-bottom: 50px;
+}
+
+.section-title em {
+  font-style: italic;
+  color: rgba(255, 150, 185, 0.95);
+}
+
+/* HERO */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 60px;
+}
+
+.hero-eyebrow {
+  font-family: 'Petit Formal Script', cursive;
+  font-size: 1.2rem;
+  color: rgba(255, 160, 190, 0.85);
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.hero-title .line1 { color: rgba(255, 235, 240, 0.95); display: block; }
+.hero-title .line2 {
+  color: rgba(255, 160, 190, 0.95);
+  font-style: italic;
+  display: block;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: rgba(200, 150, 170, 0.85);
+  letter-spacing: 0.04em;
+  max-width: 540px;
+  margin: 0 auto 40px;
+}
+
+.scroll-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(180, 120, 150, 0.75);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.scroll-btn:hover { color: rgba(255, 160, 190, 1); }
+
+.scroll-arrow {
+  font-size: 1.3rem;
+  animation: bounce-arrow 2s ease-in-out infinite;
+}
+
+@keyframes bounce-arrow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* MESSAGE CARD */
+.message-card {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 55px 45px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  border: 1px solid rgba(255, 180, 200, 0.15);
+  border-radius: 24px;
+  box-shadow: 0 8px 60px rgba(0, 0, 0, 0.55), 0 0 50px rgba(160, 40, 90, 0.1), inset 0 1px 0 rgba(255, 200, 220, 0.1);
+  text-align: center;
+}
+
+.card-flowers-top {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.card-flowers-top span {
+  display: inline-block;
+  animation: float-flower 3s ease-in-out infinite;
+}
+
+.card-flowers-top span:nth-child(2) { animation-delay: 0.5s; }
+.card-flowers-top span:nth-child(3) { animation-delay: 1s; }
+
+@keyframes float-flower {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-12px) rotate(5deg); }
+}
+
+.msg-label {
+  font-family: 'Petit Formal Script', cursive;
+  font-size: 1rem;
+  color: rgba(255, 150, 185, 0.9);
+  margin-bottom: 16px;
+}
+
+.msg-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  font-weight: 300;
+  line-height: 1.25;
+  margin-bottom: 28px;
+  color: rgba(255, 235, 240, 0.95);
+}
+
+.msg-title em {
+  color: rgba(255, 150, 185, 0.95);
+  font-style: italic;
+}
+
+.msg-body {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(200, 160, 175, 0.9);
+  line-height: 1.9;
+  margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+
+.msg-signature {
+  font-family: 'Petit Formal Script', cursive;
+  font-size: 1.3rem;
+  color: rgba(255, 150, 185, 0.95);
+  margin-top: 28px;
+}
+
+/* REASONS GRID */
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.reason-card {
+  padding: 35px 25px;
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 150, 180, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 180, 200, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  text-align: center;
+}
+
+.reason-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(220, 80, 130, 0.3);
+}
+
+.reason-icon {
+  font-size: 2.5rem;
+  margin-bottom: 14px;
+  display: block;
+  animation: float-flower 4s ease-in-out infinite;
+}
+
+.reason-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: rgba(255, 225, 235, 0.95);
+  margin-bottom: 10px;
+}
+
+.reason-card p {
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: rgba(190, 145, 165, 0.85);
+  line-height: 1.7;
+}
+
+/* GALLERY / MEMORIES */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.gallery-card {
+  aspect-ratio: 1/1;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(70,15,35,0.6), rgba(40,8,25,0.5));
+  border: 1px solid rgba(255, 150, 180, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.4s ease;
+  cursor: pointer;
+}
+
+.gallery-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 60px rgba(200, 80, 130, 0.3);
+}
+
+.gallery-placeholder {
+  font-size: 2.5rem;
+  opacity: 0.7;
+}
+
+.gallery-card p {
+  font-family: 'Petit Formal Script', cursive;
+  font-size: 0.95rem;
+  color: rgba(220, 170, 190, 0.9);
+}
+
+/* FINALE */
+#finale {
+  text-align: center;
+  padding: 120px 24px;
+}
+
+.finale-flowers {
+  font-size: 2.3rem;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.finale-flowers span {
+  display: inline-block;
+  animation: float-flower 3s ease-in-out infinite;
+}
+
+.finale-flowers span:nth-child(2) { animation-delay: 0.3s; }
+.finale-flowers span:nth-child(3) { animation-delay: 0.6s; }
+.finale-flowers span:nth-child(4) { animation-delay: 0.9s; }
+.finale-flowers span:nth-child(5) { animation-delay: 1.2s; }
+
+.finale-eyebrow {
+  font-family: 'Petit Formal Script', cursive;
+  font-size: 1.15rem;
+  color: rgba(255, 160, 190, 0.85);
+  margin-bottom: 16px;
+}
+
+.finale-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 28px;
+  color: rgba(255, 235, 240, 0.95);
+}
+
+.finale-title em {
+  color: rgba(255, 160, 190, 0.95);
+  font-style: italic;
+}
+
+.finale-body {
+  max-width: 600px;
+  margin: 0 auto 35px;
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255, 230, 235, 0.8);
+  line-height: 1.9;
+}
+
+.heart-pulse {
+  font-size: 3.5rem;
+  display: inline-block;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.18); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); }
+  56% { transform: scale(1); }
+}
+
+.finale-sig {
+  font-family: 'Petit Formal Script', cursive;
+  font-size: 1.3rem;
+  color: rgba(255, 182, 193, 0.9);
+  margin-top: 25px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 30px 20px;
+  background: rgba(8, 2, 12, 0.95);
+  border-top: 1px solid rgba(160, 50, 90, 0.15);
+  font-family: 'Petit Formal Script', cursive;
+  font-size: 1.05rem;
+  color: rgba(255, 182, 193, 0.6);
+}
+
+/* PETALS */
+.petal {
+  position: fixed;
+  top: -30px;
+  font-size: 1.2rem;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.7;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.8; }
+  50% { transform: translateY(50vh) rotate(180deg) translateX(30px); opacity: 0.5; }
+  100% { transform: translateY(105vh) rotate(360deg) translateX(-20px); opacity: 0; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .message-card { padding: 40px 22px; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  section { padding: 80px 18px; }
+  #gift-box { width: 130px; height: 130px; }
+  .gift-lid { width: 146px; }
+}
 </style>
 </head>
+
 <body>
 
-<div class="card">
-  <div class="corner-tl"></div>
-  <div class="corner-tr"></div>
-  <div class="corner-bl"></div>
-  <div class="corner-br"></div>
-
-  <div class="top-bar">
-    <span>@jookey74</span>
-    <span>Est. 2024</span>
-  </div>
-
-  <h1>Pricelist Skripsi &amp; Tesis</h1>
-  <p class="subtitle">Jasa Pengerjaan Tugas, Skripsi &amp; Tesis — <span>2026 / 2027</span></p>
-
-  <!-- ============================= -->
-  <!-- BAGIAN 1 : SKRIPSI            -->
-  <!-- ============================= -->
-
-  <!-- PAKET SEMPRO -->
-  <div class="dark-block">
-    <div class="section-title gold">Paket Sempro</div>
-    <div class="item">
-      <div class="left"><div class="name">BAB 1 – 3</div></div>
-      <div class="price">Rp 850.000</div>
-    </div>
-
-    <div class="include-title">Include:</div>
-    <ul class="include-list">
-      <li>Free bimbingan online</li>
-      <li>Revisi sampai Acc</li>
-      <li>Jurnal</li>
-      <li>Dapus (mendeley)</li>
-      <li>Parafrase</li>
-      <li>Free PPT</li>
-    </ul>
-  </div>
-
-  <!-- PAKET SIDANG -->
-  <div class="dark-block">
-    <div class="section-title gold">Paket Sidang</div>
-    <div class="item">
-      <div class="left"><div class="name">BAB 4 – 5</div></div>
-      <div class="price">Rp 1.200.000</div>
-    </div>
-
-    <div class="include-title">Include:</div>
-    <ul class="include-list">
-      <li>Free bimbingan online</li>
-      <li>Revisi sampai Acc</li>
-      <li>Jurnal</li>
-      <li>Dapus (mendeley)</li>
-      <li>Parafrase</li>
-      <li>Free PPT</li>
-    </ul>
-  </div>
-
-  <!-- PAKET ALL SKRIPSI -->
-  <div class="dark-block">
-    <div class="section-title gold">Paket All Skripsi</div>
-    <div class="item">
-      <div class="left"><div class="name">BAB 1 – 5</div></div>
-      <div class="price">Rp 2.000.000</div>
-    </div>
-
-    <div class="include-title">Include:</div>
-    <ul class="include-list">
-      <li>Free bimbingan online</li>
-      <li>Revisi sampai Acc</li>
-      <li>Jurnal</li>
-      <li>Dapus (mendeley)</li>
-      <li>Parafrase</li>
-      <li>Free PPT</li>
-    </ul>
-  </div>
-
-  <!-- SKRIPSI PER BAB -->
-  <div class="section-title">Skripsi Per Bab</div>
-  <div class="divider"></div>
-
-  <div class="item">
-    <div class="left"><div class="name">BAB 1</div></div>
-    <div class="price">Rp 150.000</div>
-  </div>
-  <div class="item">
-    <div class="left"><div class="name">BAB 2</div></div>
-    <div class="price">Rp 250.000</div>
-  </div>
-  <div class="item">
-    <div class="left"><div class="name">BAB 3</div></div>
-    <div class="price">Rp 150.000</div>
-  </div>
-  <div class="item">
-    <div class="left"><div class="name">BAB 4</div></div>
-    <div class="price">Rp 700.000</div>
-  </div>
-  <div class="item">
-    <div class="left"><div class="name">BAB 5</div></div>
-    <div class="price">Rp 100.000</div>
-  </div>
-
-  <div class="include-title" style="color: #2a2a2a; margin-top: 16px;">Include:</div>
-  <ul class="include-list dark-text">
-    <li>Free bimbingan online</li>
-    <li>Free 3x Revisi</li>
-    <li>Jurnal</li>
-    <li>Dapus (mendeley)</li>
-    <li>Parafrase</li>
-  </ul>
-
-  <!-- HIGHLIGHT BOX SKRIPSI -->
-  <div class="highlight-box">
-    <strong>PPT Sempro : Rp 50.000</strong><br>
-    <strong>PPT Semhas : Rp 80.000</strong><br>
-    <strong>Artikel : 10k/halaman</strong><br>
-    <strong>Only Revisi : 50k–300k</strong>
-  </div>
-
-  <!-- PAYMENT INFO SKRIPSI -->
-  <div class="payment-info">
-    <div><span class="icon">💳</span>Payment sistem DP</div>
-    <div><span class="icon">📚</span>Bimbingan Offline (Jakarta) <span class="price-extra">+ Rp 350.000</span></div>
-  </div>
-
-  <!-- ============================= -->
-  <!-- PEMBATAS SKRIPSI & TESIS      -->
-  <!-- ============================= -->
-  <div class="big-divider"></div>
-
-  <!-- ============================= -->
-  <!-- BAGIAN 2 : TESIS              -->
-  <!-- ============================= -->
-
-  <!-- PAKET SEMPRO TESIS -->
-  <div class="dark-block">
-    <div class="section-title blue">Paket Sempro</div>
-    <div class="item">
-      <div class="left"><div class="name">BAB 1 – 4</div></div>
-      <div class="price">Rp 1.500.000</div>
-    </div>
-
-    <div class="include-title">Include:</div>
-    <ul class="include-list">
-      <li>Free bimbingan online</li>
-      <li>Revisi sampai Acc</li>
-      <li>Jurnal</li>
-      <li>Dapus (mendeley)</li>
-      <li>Parafrase</li>
-      <li>Free PPT</li>
-    </ul>
-  </div>
-
-  <!-- PAKET SIDANG TESIS -->
-  <div class="dark-block">
-    <div class="section-title blue">Paket Sidang</div>
-    <div class="item">
-      <div class="left"><div class="name">BAB 5 – 7</div></div>
-      <div class="price">Rp 2.600.000</div>
-    </div>
-
-    <div class="include-title">Include:</div>
-    <ul class="include-list">
-      <li>Free bimbingan online</li>
-      <li>Revisi sampai Acc</li>
-      <li>Jurnal</li>
-      <li>Dapus (mendeley)</li>
-      <li>Parafrase</li>
-      <li>Free PPT</li>
-    </ul>
-  </div>
-
-  <!-- PAKET ALL TESIS -->
-  <div class="dark-block">
-    <div class="section-title blue">Paket All Tesis</div>
-    <div class="item">
-      <div class="left"><div class="name">BAB 1 – 7</div></div>
-      <div class="price">Rp 4.000.000</div>
-    </div>
-
-    <div class="include-title">Include:</div>
-    <ul class="include-list">
-      <li>Free bimbingan online</li>
-      <li>Revisi sampai Acc</li>
-      <li>Jurnal</li>
-      <li>Dapus (mendeley)</li>
-      <li>Parafrase</li>
-      <li>Free PPT</li>
-    </ul>
-  </div>
-
-  <!-- TESIS PER BAB -->
-  <div class="section-title">Tesis Per Bab</div>
-  <div class="divider"></div>
-
-  <div class="item">
-    <div class="left"><div class="name">BAB 1</div></div>
-    <div class="price">Rp 250.000</div>
-  </div>
-  <div class="item">
-    <div class="left"><div class="name">BAB 2</div></div>
-    <div class="price">Rp 550.000</div>
-  </div>
-  <div class="item">
-    <div class="left"><div class="name">BAB 3</div></div>
-    <div class="price">Rp 100.000</div>
-  </div>
-  <div class="item">
-    <div class="left"><div class="name">BAB 4</div></div>
-    <div class="price">Rp 350.000</div>
-  </div>
-  <div class="item">
-    <div class="left"><div class="name">BAB 5</div></div>
-    <div class="price">Rp 1.200.000</div>
-  </div>
-  <div class="item">
-    <div class="left"><div class="name">BAB 6</div></div>
-    <div class="price">Rp 1.000.000</div>
-  </div>
-  <div class="item">
-    <div class="left"><div class="name">BAB 7</div></div>
-    <div class="price">Rp 100.000</div>
-  </div>
-
-  <div class="include-title" style="color: #2a2a2a; margin-top: 16px;">Include:</div>
-  <ul class="include-list dark-text">
-    <li>Free bimbingan online</li>
-    <li>Free 3x Revisi</li>
-    <li>Jurnal</li>
-    <li>Dapus (mendeley)</li>
-    <li>Parafrase</li>
-  </ul>
-
-  <!-- HIGHLIGHT BOX TESIS -->
-  <div class="highlight-box">
-    <strong>PPT Sempro : Rp 50.000</strong><br>
-    <strong>PPT Semhas : Rp 80.000</strong><br>
-    <strong>Artikel : 10k/halaman</strong><br>
-    <strong>Only Revisi : 50k–300k</strong>
-  </div>
-
-  <!-- PAYMENT INFO TESIS -->
-  <div class="payment-info">
-    <div><span class="icon">💳</span>Payment sistem DP</div>
-    <div><span class="icon">📚</span>Bimbingan Offline (Jakarta) <span class="price-extra">+ Rp 500.000</span></div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <div class="left">@jookey74</div>
-    <div class="right">
-      Pembayaran DP 50% di awal, pelunasan sebelum file final dikirim.
+<!-- ===== INTRO SCENE ===== -->
+<div id="intro-scene">
+  <div class="gift-wrapper">
+    <div id="gift-container" onclick="openGift()">
+      <div id="gift-box">
+        <div class="gift-lid">
+          <div class="ribbon-h"></div>
+          <div class="ribbon-v"></div>
+          <div class="bow">
+            <div class="bow-left"></div>
+            <div class="bow-right"></div>
+            <div class="bow-center"></div>
+          </div>
+        </div>
+        <div class="gift-body">
+          <div class="ribbon-h"></div>
+          <div class="ribbon-v"></div>
+        </div>
+      </div>
+      <p class="gift-hint">✨ tap to open ✨</p>
     </div>
   </div>
+</div>
+
+<!-- ===== MAIN SITE ===== -->
+<div id="main-site">
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-eyebrow">a love letter in bloom</p>
+    <h1 class="hero-title">
+      <span class="line1">Happy Birthday,</span>
+      <span class="line2">My Everything</span>
+    </h1>
+    <p class="hero-sub">Every petal holds a whisper of how much you mean to me.</p>
+    <a href="#message" class="scroll-btn">
+      <span>Scroll to discover</span>
+      <div class="scroll-arrow">↓</div>
+    </a>
+  </section>
+
+  <!-- MESSAGE -->
+  <section id="message">
+    <div class="message-card">
+      <div class="card-flowers-top">
+        <span>🌸</span><span>🌺</span><span>🌸</span>
+      </div>
+      <p class="msg-label">from my heart</p>
+      <h2 class="msg-title">You are my<br><em>wildest dream</em><br>come true.</h2>
+      <p class="msg-body">Hi, Sayang. Happy Birthday ya 🩷</p>
+      <p class="msg-body">Semoga tahun ini jadi tahun terbaik kamu. Makasih udah selalu ada, udah sabar, dan udah jadi alasan aku tersenyum tiap hari.</p>
+      <p class="msg-body">Sekali lagi, aku sayang kamuuu 🩷</p>
+      <p class="msg-body">✨ Selamat ulang tahun ✨</p>
+      <div class="msg-signature">— Always yours 🌹</div>
+    </div>
+  </section>
+
+  <!-- REASONS -->
+  <section id="reasons">
+    <p class="section-eyebrow">a thousand reasons why</p>
+    <h2 class="section-title">Why I Love You</h2>
+    <div class="reasons-grid">
+      <div class="reason-card">
+        <div class="reason-icon">🌹</div>
+        <h3>Your Smile</h3>
+        <p>It lights up every room and every corner of my heart simultaneously.</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">💫</div>
+        <h3>Your Soul</h3>
+        <p>Rare, genuine, and more beautiful than any flower ever grown.</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">🌸</div>
+        <h3>Your Kindness</h3>
+        <p>The way you love the world makes me want to be better every single day.</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">✨</div>
+        <h3>Your Laughter</h3>
+        <p>The best sound in the universe. My favourite melody, always.</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">🌺</div>
+        <h3>Your Strength</h3>
+        <p>You carry so much grace through everything. I admire you endlessly.</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">💖</div>
+        <h3>Simply You</h3>
+        <p>Every version of you, every moment — you are more than enough.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="memories">
+    <p class="section-eyebrow">captured in time</p>
+    <h2 class="section-title">Your Beautiful<br><em>Pictures</em></h2>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="gallery-placeholder">🌸</div>
+        <p>you</p>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-placeholder">🌺</div>
+        <p>are</p>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-placeholder">🌹</div>
+        <p>so</p>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-placeholder">🌷</div>
+        <p>beautiful</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINALE -->
+  <section id="finale">
+    <div class="finale-flowers">
+      <span>🌸</span><span>🌺</span><span>🌹</span><span>🌸</span><span>🌷</span>
+    </div>
+    <p class="finale-eyebrow">always &amp; forever</p>
+    <h2 class="finale-title">You Are Loved<br><em>Beyond Words</em></h2>
+    <p class="finale-body">
+      No matter where life takes us, know that somewhere in the universe,
+      there is a garden blooming with every feeling I have ever held for you.
+      You deserve the world. You deserve all the flowers. You deserve everything.
+    </p>
+    <div class="heart-pulse">💗</div>
+    <p class="finale-sig">Made with love, just for you 🌸</p>
+  </section>
+
+  <footer>
+    🌸 for you 🌸
+  </footer>
 
 </div>
+
+<!-- ===== SCRIPT ===== -->
+<script>
+// ====== OPEN GIFT ======
+let introStarted = false;
+
+function openGift() {
+  if (introStarted) return;
+  introStarted = true;
+
+  const lid = document.querySelector('.gift-lid');
+  const hint = document.querySelector('.gift-hint');
+
+  // Hide hint
+  hint.style.transition = 'opacity 0.3s';
+  hint.style.opacity = '0';
+
+  // Shake gift box
+  const box = document.getElementById('gift-box');
+  box.style.animation = 'none';
+  setTimeout(() => {
+    box.style.transform = 'rotate(-4deg)';
+    setTimeout(() => box.style.transform = 'rotate(4deg)', 100);
+    setTimeout(() => box.style.transform = 'rotate(0deg)', 200);
+  }, 50);
+
+  // Fly lid
+  setTimeout(() => {
+    lid.classList.add('fly');
+  }, 400);
+
+  // Burst flowers
+  setTimeout(() => burstFlowers(), 600);
+
+  // Start petals
+  setTimeout(() => startPetals(), 800);
+
+  // Show main site
+  setTimeout(() => {
+    document.getElementById('intro-scene').classList.add('hide');
+    document.getElementById('main-site').classList.add('show');
+  }, 1800);
+}
+
+// ====== BURST FLOWERS ======
+function burstFlowers() {
+  const flowers = ['🌸','🌺','🌹','🌷','🌼','🪷','💐','🌸','🌺','🌹','🌸','🌷'];
+  const container = document.getElementById('intro-scene');
+
+  flowers.forEach((flower, i) => {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.textContent = flower;
+      el.style.cssText = `
+        position: fixed;
+        top: 50%; left: 50%;
+        font-size: ${Math.random() * 1.5 + 1.5}rem;
+        pointer-events: none;
+        z-index: 1500;
+        transform: translate(-50%, -50%);
+        transition: all 2s cubic-bezier(0.25,0.46,0.45,0.94);
+        opacity: 1;
+      `;
+      document.body.appendChild(el);
+
+      const angle = (i / flowers.length) * 360 + Math.random() * 30;
+      const dist = Math.random() * 200 + 150;
+      const rad = (angle * Math.PI) / 180;
+      const tx = Math.cos(rad) * dist;
+      const ty = Math.sin(rad) * dist;
+      const rot = Math.random() * 360 - 180;
+
+      requestAnimationFrame(() => {
+        el.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) rotate(${rot}deg) scale(1.2)`;
+        el.style.opacity = '0';
+      });
+
+      setTimeout(() => el.remove(), 2200);
+    }, i * 70);
+  });
+}
+
+// ====== FALLING PETALS ======
+function startPetals() {
+  const petals = ['🌸','🌺','🌷','🌼','🌹','🪷','💐'];
+  const interval = setInterval(() => {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petals[Math.floor(Math.random() * petals.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.fontSize = (Math.random() * 0.8 + 0.8) + 'rem';
+    p.style.animationDuration = (Math.random() * 6 + 8) + 's';
+    p.style.animationDelay = (Math.random() * 2) + 's';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 16000);
+  }, 400);
+
+  // Limit jumlah petal biar ga berat
+  setTimeout(() => clearInterval(interval), 60000);
+}
+
+// ====== AUTO START PETALS setelah intro ======
+window.addEventListener('load', () => {
+  // Pre-start petals sedikit di background
+  setTimeout(startPetals, 500);
+});
+</script>
 
 </body>
 </html>
